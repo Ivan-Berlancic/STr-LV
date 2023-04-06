@@ -1,26 +1,43 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-# Učitavanje slike i pretvaranje u grayscale
+
 img = plt.imread("tiger.png")
-img = img[:,:,0].copy()
 
-# a) Posvijetljivanje slike
-brightened_img = np.clip(img + 50, 0, 255).astype(np.uint8)
+print(img.shape)
+print(img.dtype)
+brig_img = img + 0.5
+plt.figure()
+plt.subplot(1, 5, 1)
+plt.imshow(brig_img, cmap ="gray")
 
-# b) Rotacija slike za 90 stupnjeva u smjeru kazaljke na satu
-rotated_img = np.rot90(img, k=-1)
+img2 = img[:,:,0].copy()
+(h, w) = img2.shape
+img_rot = np.zeros((w,h))
+for i in range(0, h):
+    img_rot[ :, h-1-i] = img2[i, : ]
 
-# c) Zrcaljenje slike
-flipped_img = np.fliplr(img)
 
-# d) Smanjivanje rezolucije slike za 10 puta
-downsampled_img = img[::10, ::10]
+plt.subplot(1, 5, 2)
+plt.imshow(img_rot, cmap ="gray")
 
-# e) Prikazivanje samo druge četvrtine slike po širini, a cijele slike po visini
-h, w = img.shape
-quarter_w = w // 4
-cropped_img = np.zeros((h, w), dtype=np.uint8)
-cropped_img[:, quarter_w:quarter_w*3] = img[:, quarter_w:quarter_w*3]
-plt.imshow(cropped_img, cmap='gray')
+
+img_zrc = np.zeros((h,w))
+for i in range(0, h):
+    img_zrc[h-1-i, :] = img2[i, :]
+
+plt.subplot(1, 5, 3)
+plt.imshow(img_zrc, cmap ="gray")
+
+img_res = img2[::10,::10]
+
+plt.subplot(1, 5, 4)
+plt.imshow(img_res, cmap ="gray")
+
+img_zadnja = np.zeros((h,w))
+for i in range(240, 480):
+    img_zadnja[:,i] = img2[:,i]
+
+plt.subplot(1, 5, 5)
+plt.imshow(img_zadnja, cmap ="gray")
 plt.show()
