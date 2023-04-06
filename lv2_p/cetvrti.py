@@ -6,7 +6,9 @@ def kvadrati_funkcija(vel_kvadrata, height, width):
     w = vel_kvadrata * width
 
     black = np.zeros((vel_kvadrata, vel_kvadrata))
-    white = np.ones((vel_kvadrata, vel_kvadrata)) * 255
+    white = np.ones((vel_kvadrata, vel_kvadrata, 3)) * 255
+    crvena = np.zeros((vel_kvadrata, vel_kvadrata, 3))
+    crvena[:,:,0] = 255
 
     redovi = []
     
@@ -14,7 +16,7 @@ def kvadrati_funkcija(vel_kvadrata, height, width):
         red = []
         for j in range(width):
             if (i+j) % 2 == 0:
-                red.append(black)
+                red.append(crvena)
             else:
                 red.append(white)
         redovi.append(np.hstack(red))
