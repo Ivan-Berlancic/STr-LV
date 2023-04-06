@@ -1,30 +1,25 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-def checkerboard(square_size, num_squares_height, num_squares_width):
-    # dimenzije slike
-    height = square_size * num_squares_height
-    width = square_size * num_squares_width
+def kvadrati_funkcija(vel_kvadrata, height, width):
+    h = vel_kvadrata * height
+    w = vel_kvadrata * width
 
-    # kreiranje polja crnih i bijelih kvadrata
-    black_square = np.zeros((square_size, square_size))
-    white_square = np.ones((square_size, square_size)) * 255
+    black = np.zeros((vel_kvadrata, vel_kvadrata))
+    white = np.ones((vel_kvadrata, vel_kvadrata)) * 255
 
-    # složenje crnih i bijelih kvadrata u jednu sliku
-    rows = []
-    for i in range(num_squares_height):
-        row = []
-        for j in range(num_squares_width):
+    redovi = []
+    
+    for i in range(height):
+        red = []
+        for j in range(width):
             if (i+j) % 2 == 0:
-                row.append(black_square)
+                red.append(black)
             else:
-                row.append(white_square)
-        rows.append(np.hstack(row))
-    img = np.vstack(rows)
-
+                red.append(white)
+        redovi.append(np.hstack(red))
+    img = np.vstack(redovi)
     return img.astype(np.uint8)
-
-# primjer korištenja funkcije
-img = checkerboard(50, 8, 10)
+img = kvadrati_funkcija(50, 4, 5)
 plt.imshow(img, cmap='gray', vmin=0, vmax=255)
 plt.show()
